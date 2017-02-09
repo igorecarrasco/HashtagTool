@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+{% load static %}
+	<head>
+		<title>Hashtag Interaction Counter</title>
+		<meta charset="UTF-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<!-- Revise Plugins needed for this project - anytime is already added -->
+		<script src= {% static "Hashtag/plugins.js" %}></script>
+		<link rel="stylesheet" href= {% static "Hashtag/styles.css" %}>
+		<link rel="stylesheet" href= {% static "Hashtag/anytime.css" %}>
+	</head>
+	<body>
+		<form action="/Hashtag/twitter" method="get" id="hashtagform">
+			<input name="hashtag" type="text" placeholder="What hashtag would you like to check?" id="hashtagtext">
+			<input name="datestart" placeholder="Click here to set" type="text" id="start">
+			<input name="dateend" placeholder="Click here to set" type="text" id="end">
+
+			<input type="submit" value="Submit">
+		</form>
+		<p>This hashtag had <strong>{{ statuslist|length }}</strong> interactions</p>
+		
+		{% for text in statuslist %}
+			{{ text.text }}<br>
+		{% endfor %}
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('#start').AnyTime_picker( "field1",
+		{ format: "%W, %M %D in the Year %z %E", firstDOW: 1 } );
+		$('#end').AnyTime_picker( "field1",
+		{ format: "%W, %M %D in the Year %z %E", firstDOW: 1 } );
+	});
+	</script>
+	</body>
+</html>
